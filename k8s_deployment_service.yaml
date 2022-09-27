@@ -16,7 +16,7 @@ spec:
         app: devsecops
     spec:
       containers:
-      - image: replace
+      - image: ragh19/springboot:$BUILD_NUMBER
         name: devsecops-container
 ---
 apiVersion: v1
@@ -32,4 +32,4 @@ spec:
     targetPort: 8080
   selector:
     app: devsecops
-  type: NodePort
+  type: LoadBalancer
