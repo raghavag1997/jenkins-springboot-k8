@@ -16,7 +16,7 @@ spec:
         app: devsecops
     spec:
       containers:
-      - image: ragh19/springboot:$BUILD_NUMBER
+      - image: replace
         name: devsecops-container
 ---
 apiVersion: v1
