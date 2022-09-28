@@ -37,7 +37,7 @@ pipeline {
       }
       stage('Publishing Docker Image') {
           steps {
-              withDockerRegistry(credentialsId: 'dockerhub' , url: 'https://registry.hub.docker.com') {
+              withDockerRegistry(credentialsId: 'dockerhub' , url: 'https://docker.io') {
                   sh 'docker push ragh19/springboot:$BUILD_NUMBER'
                   
             }
