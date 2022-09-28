@@ -7,6 +7,11 @@ pipeline {
               git branch: 'main', url: 'https://github.com/raghavag1997/jenkins-springboot-k8.git'
           }
       }
+      stage('SonarQube Analysis') {
+          steps {
+              sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=springboot-firstproject -Dsonar.host.url=http://52.253.114.17:9000 -Dsonar.login=sqp_64a5d633f0489009382edbba25691d8f56c32542'
+          }
+      }
       stage('Build Artifact') {
             steps {
               sh "mvn clean package -DskipTests=true"
