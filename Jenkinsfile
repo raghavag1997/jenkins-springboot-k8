@@ -11,12 +11,16 @@ pipeline {
           steps {
              withSonarQubeEnv('mysonarqube') {
                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=springboot-firstproject -Dsonar.host.url=http://52.253.114.17:9000'
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
-                }
              }  
           }
       }
+    stage("Quality Gate") {
+         steps {
+              timeout(time: 1, unit: 'HOURS') {
+               waitForQualityGate abortPipeline: true
+              }
+            }
+       }
       stage('Build Artifact') {
             steps {
               sh "mvn clean package -DskipTests=true"
