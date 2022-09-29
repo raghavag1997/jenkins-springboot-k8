@@ -9,7 +9,7 @@ pipeline {
       }
       stage('SonarQube Analysis') {
           steps {
-             withSonarQubeEnv('mysonarqube') {
+             withSonarQubeEnv('SonarQube') {
                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=springboot-firstproject -Dsonar.host.url=http://52.253.114.17:9000'
              }  
           }
