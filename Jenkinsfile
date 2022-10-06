@@ -39,6 +39,11 @@ pipeline {
               }
           }
       } 
+      stage('Docker Image Scan - Trivy') {
+          steps {
+              sh 'bash trivyscan.sh'
+          }
+      }
       stage('Bulding Docker Image') {
           steps {
               sh 'docker build -t ragh19/springboot:$BUILD_NUMBER .'
