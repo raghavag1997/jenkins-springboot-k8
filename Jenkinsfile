@@ -46,7 +46,7 @@ pipeline {
       }
       stage('Bulding Docker Image') {
           steps {
-              sh 'docker build -t ragh19/springboot:$BUILD_NUMBER .'
+              sh 'sudo docker build -t ragh19/springboot:$BUILD_NUMBER .'
           }
       }
       stage('Publishing Docker Image') {
