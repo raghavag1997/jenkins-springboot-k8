@@ -6,13 +6,12 @@ dockerImage=$(awk 'NR==1 {print $2}' Dockerfile)
 
 echo $dockerImage
 
-#If exit code ==1 which means critical vul
+#If exit code ==0 which means mrdium vul
+docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.32.1 image -q --vuln-type os --severity HIGH,MEDIUM  --exit-code 0 $dockerImage
 
-sudo docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.32.1 image -q --vuln-type os --severity CRITICAL  --exit-code 1 $dockerImage
+#If exit code ==1 which means high vul
+docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.32.1 image -q --vuln-type os --severity CRITICAL  --exit-code 1 $dockerImage
 
-#If exit code ==1 which means high or medium vul
-
-sudo docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.32.1 image -q --vuln-type os --severity HIGH,MEDIUM  --exit-code 0 $dockerImage
 
 status_code=$?
 echo $status_code
