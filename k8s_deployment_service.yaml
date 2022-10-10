@@ -18,6 +18,7 @@ spec:
       containers:
       - image: replace
         name: devsecops-container
+      serviceAccountName: default
       securityContext:
         runAsNonRoot: true
         #Giving id of raghav user
