@@ -62,7 +62,7 @@ pipeline {
       stage('Publishing Docker Image') {
           steps {
               withDockerRegistry(credentialsId: 'dockerhub' , url: '') {
-                  sh 'docker push ragh19/springboot:$BUILD_NUMBER'
+                  sh 'docker push ${imageName}'
                   
             }
           }
