@@ -55,7 +55,7 @@ pipeline {
       }
       stage('Bulding Docker Image') {
           steps {
-              sh 'sudo docker build -t ragh19/springboot:$BUILD_NUMBER .'
+              sh 'sudo docker build -t ${imageName} .'
           }
       }
       stage('Publishing Docker Image') {
@@ -73,7 +73,14 @@ pipeline {
     //}
     stage('K8 Vul Scan - Kubesec') {
       steps {
-        sh 'bash kube-scan.sh'
+        parallel (
+          "kubescan": {
+              sh 'bash kube-scan.sh'   
+          },
+          "TrivyScan" {
+            sh 'bash trivyscan-k8.sh'
+          }
+        )
       }
     }
       stage('Deploying to kubernetes') {
