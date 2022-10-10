@@ -64,9 +64,14 @@ pipeline {
             }
           }
       }
-    stage('k8 Deployment File Scan - OPA') {
+//    stage('k8 Deployment File Scan - OPA') {
+  //    steps {
+    //    sh 'sudo docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy k8-security.rego k8s_deployment_service.yaml'
+      //}
+    //}
+    stage('K8 Vul Scan - Kubesec') {
       steps {
-        sh 'sudo docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy k8-security.rego k8s_deployment_service.yaml'
+        sh 'bash kube-scan.sh'
       }
     }
       stage('Deploying to kubernetes') {
