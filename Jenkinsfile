@@ -77,7 +77,7 @@ pipeline {
           "kubescan": {
               sh 'bash kube-scan.sh'   
           },
-          "TrivyScan" {
+          "TrivyScan": {
             sh 'bash trivyscan-k8.sh'
           }
         )
