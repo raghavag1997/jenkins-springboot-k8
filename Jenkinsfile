@@ -55,7 +55,7 @@ pipeline {
       }
       stage('Bulding Docker Image') {
           steps {
-              sh 'sudo docker build -t ${imageName} .'
+              sh 'sudo docker build -t $imageName .'
           }
       }
       stage('Publishing Docker Image') {
