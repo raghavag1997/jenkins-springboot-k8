@@ -64,6 +64,11 @@ pipeline {
             }
           }
       }
+    stage('k8 Deployment File Scan - OPA') {
+      steps {
+        sh 'sudo docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy k8-security.rego k8s_deployment_service.yaml'
+      }
+    }
       stage('Deploying to kubernetes') {
           steps {
               withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: '0e4ff84e-9367-46d6-8be4-b65a31291bdc', namespace: '', serverUrl: '') {
