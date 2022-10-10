@@ -1,5 +1,7 @@
 FROM openjdk:8-jdk-alpine
-EXPOSE 8080
 ARG JAR_FILE=target/*.jar
-ADD ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+RUN addgroup -S raghav && adduser -S raghav -G raghav
+COPY ${JAR_FILE} /home/raghav/app.jar
+USER raghav
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/home/raghav/app.jar"]
