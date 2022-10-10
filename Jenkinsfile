@@ -39,9 +39,16 @@ pipeline {
               }
           }
       } 
-      stage('Docker Image Scan - Trivy') {
+      stage('Docker Image Scan - Trivy and OPA DockerFile Best Prac') {
           steps {
-              sh 'bash trivyscan.sh'
+              parallel(
+                    "Trivy Scan": {
+                      sh 'bash trivyscan.sh'
+                    },
+                    "OPA Conftest": {
+                      sh 'sudo docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy dockerfile-security.rego Dockerfile'
+                  }
+              )
           }
       }
       stage('Bulding Docker Image') {
