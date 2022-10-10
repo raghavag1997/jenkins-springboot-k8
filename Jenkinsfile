@@ -1,7 +1,8 @@
 pipeline {
   agent any
   environment {
-    imageName='ragh19/springboot'
+    repoName='ragh19/springboot'
+    imageName="${repoName}:${BUILD_NUMBER}"
   }
   stages {
       stage('Pulling the code from Repo') {
@@ -55,7 +56,7 @@ pipeline {
       }
       stage('Bulding Docker Image') {
           steps {
-              sh 'sudo docker build -t $imageName:$BUILD_NUMBER .'
+            sh 'sudo docker build -t ${imageName} .'
           }
       }
       stage('Publishing Docker Image') {
