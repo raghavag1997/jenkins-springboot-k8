@@ -84,13 +84,13 @@ pipeline {
         )
       }
     }
-      stage('Deploying to kubernetes') {
+      stage('Deploying to kubernetes - Prod') {
           steps {
-              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: '0e4ff84e-9367-46d6-8be4-b65a31291bdc', namespace: '', serverUrl: '') {
+              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: '0e4ff84e-9367-46d6-8be4-b65a31291bdc', namespace: 'prod', serverUrl: '') {
                 //Replacing Image Name With latest Image
-                sh 'sed -i "s,replace,ragh19/springboot:$BUILD_NUMBER," k8s_deployment_service.yaml'              
+                sh 'sed -i "s,replace,ragh19/springboot:$BUILD_NUMBER," prod-k8/k8s_deployment_service.yaml'              
                 //Applying the latest Image
-                sh 'kubectl apply -f k8s_deployment_service.yaml'              
+                sh 'kubectl apply -f prod-k8/k8s_deployment_service.yaml'              
                 //List the pod
                 sh 'kubectl get pods'  
             }
