@@ -1,6 +1,8 @@
 pipeline {
   agent any
-
+  environment {
+    imageName='ragh19/springboot:$BUILD_NUMBER'
+  }
   stages {
       stage('Pulling the code from Repo') {
           steps {
